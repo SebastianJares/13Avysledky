@@ -1,0 +1,585 @@
+/* =============================================================
+   VÝSLEDKY ÚNIKOVÉ HRY – STYLY
+   Temný "Zásilka 13A" duch – noir / archiv / detektivka
+   ============================================================= */
+
+:root {
+  --bg-0:        #07070a;
+  --bg-1:        #0d0d12;
+  --bg-2:        #14141b;
+  --bg-3:        #1c1c25;
+  --line:        #2a2a36;
+  --line-soft:   #1f1f29;
+  --text:        #e9e6df;
+  --text-dim:    #8c8a82;
+  --text-faint:  #5a5852;
+
+  --gold:        #d4af37;
+  --gold-soft:   #b8941f;
+  --silver:      #c9c9d2;
+  --bronze:      #c08457;
+  --accent:      #c43c2d;   /* červené razítko */
+
+  --radius:      14px;
+  --radius-sm:   8px;
+
+  --shadow-lg:   0 30px 60px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.03) inset;
+  --shadow-md:   0 14px 28px -16px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.03) inset;
+}
+
+/* ---------- RESET / ZÁKLAD ---------- */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-0);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(196,60,45,.08), transparent 60%),
+    radial-gradient(900px 500px at 10% 30%, rgba(212,175,55,.05), transparent 70%),
+    var(--bg-0);
+  overflow-x: hidden;
+}
+
+/* zrnitá textura */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .35;
+  z-index: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* ---------- HLAVIČKA ---------- */
+
+.site-header {
+  position: relative;
+  z-index: 1;
+  padding: 80px 24px 40px;
+  text-align: center;
+  border-bottom: 1px solid var(--line-soft);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.02), transparent 60%);
+}
+
+.header-inner { max-width: 900px; margin: 0 auto; }
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.title {
+  margin: 0;
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: clamp(34px, 6vw, 64px);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  background: linear-gradient(180deg, #f7f1df 0%, #c9a14a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 60px rgba(212,175,55,.15);
+}
+
+.subtitle {
+  margin: 18px 0 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ---------- KONTEJNER ---------- */
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ---------- PŘEPÍNAČ ÚROVNÍ ---------- */
+
+.level-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 640px;
+  margin: 0 auto 56px;
+  padding: 8px;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+.level-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 18px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .25s ease;
+}
+
+.level-btn:hover {
+  color: var(--text);
+  background: rgba(255,255,255,.02);
+}
+
+.level-btn.is-active {
+  color: var(--text);
+  background:
+    linear-gradient(180deg, rgba(212,175,55,.12), rgba(212,175,55,.03));
+  border-color: rgba(212,175,55,.4);
+  box-shadow:
+    0 0 0 1px rgba(212,175,55,.15) inset,
+    0 0 30px rgba(212,175,55,.08);
+}
+
+.level-num {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.level-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ---------- PODIUM TOP 3 ---------- */
+
+.podium {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  gap: 20px;
+  align-items: end;
+  margin-bottom: 56px;
+}
+
+@media (max-width: 760px) {
+  .podium {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+}
+
+.podium-card {
+  position: relative;
+  background:
+    linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 18px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: transform .25s ease;
+}
+
+.podium-card:hover { transform: translateY(-3px); }
+
+.podium-card .rank-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-dim);
+}
+
+.podium-card .photo {
+  width: 110px;
+  height: 110px;
+  margin: 8px auto 14px;
+  border-radius: 50%;
+  background: var(--bg-3);
+  border: 2px solid var(--line);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.podium-card .photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.podium-card .photo .placeholder {
+  font-family: 'Cinzel', serif;
+  font-size: 32px;
+  color: var(--text-faint);
+  letter-spacing: .05em;
+}
+
+.podium-card .team-name {
+  margin: 0 0 14px;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.podium-card .stats {
+  display: grid;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.podium-card .stats .main-time {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: .06em;
+  margin-bottom: 4px;
+}
+
+.podium-card .stats .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 4px;
+}
+
+.podium-card .stats .row .lbl { color: var(--text-faint); }
+.podium-card .stats .row .val { color: var(--text); }
+
+/* speciální vzhled medailí */
+.podium-card.gold {
+  position: relative;
+  border-color: rgba(212,175,55,.55);
+  transform: translateY(-12px);
+  animation: gold-breathe 4s ease-in-out infinite;
+  isolation: isolate;          /* aby ::before / ::after byly v boxu karty */
+}
+
+/* jemné pulzující záření kolem zlaté karty */
+@keyframes gold-breathe {
+  0%, 100% {
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,.7),
+      0 0 50px rgba(212,175,55,.12),
+      0 0 0 1px rgba(212,175,55,.18) inset;
+  }
+  50% {
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,.7),
+      0 0 100px rgba(212,175,55,.32),
+      0 0 0 1px rgba(212,175,55,.45) inset;
+  }
+}
+
+/* světelný "shimmer" – pomalu projíždí přes celou kartu */
+.podium-card.gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 230, 140, 0.18) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  background-position: -120% 0;
+  animation: gold-shimmer 5.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+@keyframes gold-shimmer {
+  0%   { background-position: -120% 0; opacity: 0; }
+  15%  { opacity: 1; }
+  60%  { background-position: 120% 0;  opacity: 1; }
+  75%  { opacity: 0; }
+  100% { background-position: 120% 0;  opacity: 0; }
+}
+
+/* zlatý kruh pomalu rotující kolem fotky */
+.podium-card.gold .photo {
+  border-color: var(--gold);
+  box-shadow: 0 0 30px rgba(212,175,55,.25);
+  position: relative;
+}
+.podium-card.gold .photo::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      from 0deg,
+      rgba(212,175,55,0)   0deg,
+      rgba(212,175,55,.6)  60deg,
+      rgba(255,230,140,.9) 90deg,
+      rgba(212,175,55,.6)  120deg,
+      rgba(212,175,55,0)   180deg,
+      rgba(212,175,55,0)   360deg
+    );
+  filter: blur(3px);
+  z-index: -1;
+  animation: gold-rotate 6s linear infinite;
+  opacity: .9;
+}
+
+@keyframes gold-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* dovnitř karty patří obsah nad shimmer */
+.podium-card.gold > * { position: relative; z-index: 1; }
+
+.podium-card.gold .rank-badge {
+  background: linear-gradient(180deg, #f3d97a, #b8881f);
+  color: #1a1408;
+  border-color: rgba(212,175,55,.7);
+  box-shadow: 0 0 24px rgba(212,175,55,.4);
+  animation: badge-pulse 4s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(212,175,55,.35); }
+  50%      { box-shadow: 0 0 32px rgba(255,215,100,.7); }
+}
+
+.podium-card.gold .team-name {
+  color: var(--gold);
+  text-shadow: 0 0 18px rgba(212,175,55,.4);
+}
+
+/* pokud uživatel preferuje omezený pohyb, animace vypneme */
+@media (prefers-reduced-motion: reduce) {
+  .podium-card.gold,
+  .podium-card.gold::before,
+  .podium-card.gold .photo::after,
+  .podium-card.gold .rank-badge {
+    animation: none;
+  }
+}
+
+.podium-card.silver { border-color: rgba(201,201,210,.4); }
+.podium-card.silver .rank-badge {
+  background: linear-gradient(180deg, #e8e8ef, #8e8e9a);
+  color: #1a1a20;
+  border-color: rgba(201,201,210,.6);
+}
+.podium-card.silver .photo { border-color: var(--silver); }
+.podium-card.silver .team-name { color: var(--silver); }
+
+.podium-card.bronze { border-color: rgba(192,132,87,.4); }
+.podium-card.bronze .rank-badge {
+  background: linear-gradient(180deg, #d99e76, #8a522d);
+  color: #1a0e06;
+  border-color: rgba(192,132,87,.6);
+}
+.podium-card.bronze .photo { border-color: var(--bronze); }
+.podium-card.bronze .team-name { color: var(--bronze); }
+
+/* mobilní zarovnání podia */
+@media (max-width: 760px) {
+  .podium-card.gold { transform: none; order: -1; }
+}
+
+/* ---------- ŽEBŘÍČEK – ZBYLÉ TÝMY ---------- */
+
+.leaderboard {
+  display: grid;
+  gap: 14px;
+}
+
+.team-row {
+  display: grid;
+  grid-template-columns: 56px 64px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 16px 22px;
+  background:
+    linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.team-row:hover {
+  transform: translateX(4px);
+  border-color: rgba(212,175,55,.25);
+}
+
+.team-row .rank {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--text-faint);
+  text-align: center;
+  letter-spacing: .05em;
+}
+
+.team-row .photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.team-row .photo img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+.team-row .photo .placeholder {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  color: var(--text-faint);
+}
+
+.team-row .info { min-width: 0; }
+
+.team-row .team-name {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-row .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.team-row .meta .lbl { color: var(--text-faint); margin-right: 4px; }
+.team-row .meta .val { color: var(--text); }
+
+.team-row .main-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: .06em;
+  text-align: right;
+  min-width: 110px;
+}
+
+/* mobil – přeskupení do dvou řádků */
+@media (max-width: 640px) {
+  .team-row {
+    grid-template-columns: 40px 48px 1fr;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .team-row .rank { font-size: 18px; }
+  .team-row .photo { width: 48px; height: 48px; }
+  .team-row .main-time {
+    grid-column: 1 / -1;
+    text-align: left;
+    font-size: 18px;
+    border-top: 1px dashed var(--line-soft);
+    padding-top: 10px;
+    min-width: 0;
+  }
+}
+
+/* ---------- PRÁZDNÝ STAV ---------- */
+
+.empty-msg {
+  text-align: center;
+  margin: 40px auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ---------- PATIČKA ---------- */
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--line-soft);
+  padding: 28px 24px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.site-footer strong { color: var(--gold); font-weight: 700; }
+
+/* ---------- ANIMACE PŘI PŘEPÍNÁNÍ ÚROVNÍ ---------- */
+
+.fade-swap {
+  animation: fadeSwap .35s ease both;
+}
+
+@keyframes fadeSwap {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

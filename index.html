@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07070a" />
+  <title>Výsledky – Úniková hra</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- jemná zrnitá textura přes celou stránku -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <p class="eyebrow">// Archiv případů</p>
+      <h1 class="title">Výsledky únikové hry</h1>
+      <p class="subtitle">Zásilka 13A &nbsp;·&nbsp; oficiální tabulka časů</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Přepínač kategorií -->
+    <nav class="level-switch" role="tablist" aria-label="Přepínač kategorií">
+      <button
+        class="level-btn is-active"
+        role="tab"
+        aria-selected="true"
+        data-category="withHints"
+      >
+        <span class="level-num">S penalizací</span>
+        <span class="level-sub">čas + nápovědy</span>
+      </button>
+      <button
+        class="level-btn"
+        role="tab"
+        aria-selected="false"
+        data-category="withoutHints"
+      >
+        <span class="level-num">Bez penalizace</span>
+        <span class="level-sub">čistý čas</span>
+      </button>
+    </nav>
+
+    <!-- Podium pro TOP 3 -->
+    <section class="podium" id="podium" aria-label="Nejlepší tři týmy"></section>
+
+    <!-- Žebříček ostatních týmů -->
+    <section class="leaderboard" id="leaderboard" aria-label="Žebříček týmů"></section>
+
+    <!-- Zpráva, když není žádný tým -->
+    <p class="empty-msg" id="emptyMsg" hidden>
+      Zatím tu není žádný tým – přidej je v souboru <code>teams.js</code>.
+    </p>
+
+  </main>
+
+  <!-- DATA → LOGIKA -->
+  <script src="teams.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
