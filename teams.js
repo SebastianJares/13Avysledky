@@ -28,24 +28,24 @@
 
 const TEAMS = [
   {
-    name: "Tým Sokolové",
-    photo: "pokus.webp",
+    name: "Modletice Devils",
+    photo: "modle.png",
     timeWithoutHints: "32:15",
     timeWithHints:    "35:15",
     hints: 2
   },
   {
-    name: "Tým Detektivi",
+    name: "DreamTeam",
     photo: "pokus.webp",
     timeWithoutHints: "29:50",
     timeWithHints:    "30:50",
     hints: 1
   },
   {
-    name: "Tým Stopaři",
-    photo: "pokus.webp",
-    timeWithoutHints: "27:30",
-    timeWithHints:    "27:30",
+    name: "Lepší Modletice Devils",
+    photo: "lepsimodle.png",
+    timeWithoutHints: "2:13:00",
+    timeWithHints:    "2:47:00",
     hints: 0
   },
   {
