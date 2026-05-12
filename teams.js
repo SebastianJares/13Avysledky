@@ -29,7 +29,7 @@
 const TEAMS = [
   {
     name: "Modletice Devils",
-    photo: "modle.png",
+    photo: "modle.jpg",
     timeWithoutHints: "32:15",
     timeWithHints:    "35:15",
     hints: 2
@@ -43,7 +43,7 @@ const TEAMS = [
   },
   {
     name: "Lepší Modletice Devils",
-    photo: "lepsimodle.png",
+    photo: "lepsimodle.jpg",
     timeWithoutHints: "2:13:00",
     timeWithHints:    "2:47:00",
     hints: 0
