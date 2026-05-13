@@ -30,37 +30,23 @@ const TEAMS = [
   {
     name: "Modletice Devils",
     photo: "modle.jpg",
-    timeWithoutHints: "32:15",
-    timeWithHints:    "35:15",
-    hints: 2
+    timeWithoutHints: "2:15:00",
+    timeWithHints:    "3:05:00",
+    hints: 10
   },
   {
     name: "DreamTeam",
     photo: "pokus.webp",
-    timeWithoutHints: "29:50",
-    timeWithHints:    "30:50",
-    hints: 1
+    timeWithoutHints: "2:40:00",
+    timeWithHints:    "2:15:00",
+    hints: 5
   },
   {
     name: "Lepší Modletice Devils",
     photo: "lepsimodle.jpg",
-    timeWithoutHints: "2:13:00",
+    timeWithoutHints: "2:12:00",
     timeWithHints:    "2:47:00",
-    hints: 0
+    hints: 9
   },
-  {
-    name: "Tým Vyšetřovatelé",
-    photo: "pokus.webp",
-    timeWithoutHints: "38:20",
-    timeWithHints:    "42:20",
-    hints: 3
-  },
-  {
-    name: "Tým Inspektoři",
-    photo: "pokus.webp",
-    timeWithoutHints: "41:00",
-    timeWithHints:    "45:00",
-    hints: 3
-  }
   // <<< Další tým přidej sem (nezapomeň čárku za předchozí složenou závorkou)
 ];
