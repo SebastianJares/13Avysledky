@@ -41,7 +41,7 @@ const TEAMS = [
     timeWithoutHints: "2:15:00",
     timeWithHints:    "2:40:00",
     hints: 5,
-    roomSkipped: false
+    roomSkipped: true
   },
   {
     name: "Lepší Modletice Devils",
@@ -49,11 +49,11 @@ const TEAMS = [
     timeWithoutHints: "2:12:00",
     timeWithHints:    "2:47:00",
     hints: 9,
-    roomSkipped: false
+    roomSkipped: true
   },
   {
     name: "Opozdilci",
-    photo: "",
+    photo: "opoydilci.jpg",
     timeWithoutHints: "2:20:00",
     timeWithHints:    "3:35:00",
     hints: 15,
