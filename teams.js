@@ -48,5 +48,12 @@ const TEAMS = [
     timeWithHints:    "2:47:00",
     hints: 9
   },
+    {
+    name: "Opozdilci",
+    photo: "",
+    timeWithoutHints: "2:20:00",
+    timeWithHints:    "3:35:00",
+    hints: 15
+  },
   // <<< Další tým přidej sem (nezapomeň čárku za předchozí složenou závorkou)
 ];
