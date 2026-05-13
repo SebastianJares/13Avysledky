@@ -37,8 +37,8 @@ const TEAMS = [
   {
     name: "DreamTeam",
     photo: "pokus.webp",
-    timeWithoutHints: "2:40:00",
-    timeWithHints:    "2:15:00",
+    timeWithoutHints: "2:15:00",
+    timeWithHints:    "2:40:00",
     hints: 5
   },
   {
