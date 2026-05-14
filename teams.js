@@ -70,18 +70,6 @@ const TEAMS = [
     entry10Time: "",
     endTime:     ""
   },
-    {
-    name: "O Muj Bože",
-    photo: "omujboze.jpg",
-    timeWithoutHints: "2:37:00",
-    timeWithHints:    "2:37:00",
-    hints: 0,
-    roomSkipped: false,
-    startTime:   "",
-    entry50Time: "",
-    entry10Time: "",
-    endTime:     ""
-  },
   {
     name: "Opozdilci",
     photo: "",

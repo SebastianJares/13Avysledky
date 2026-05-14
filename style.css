@@ -634,13 +634,22 @@ body.no-scroll { overflow: hidden; }
   position: fixed;
   inset: 0;
   z-index: 1000;
-  display: grid;
-  place-items: center;
-  padding: 40px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 24px 80px;
   background: rgba(7, 7, 10, .85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   animation: modalFadeIn .25s ease both;
+}
+
+/* obsah svisle vystředit, pokud se vejde; jinak skrolovat od shora */
+.photo-modal .pm-figure {
+  margin: auto;
 }
 
 .photo-modal[hidden] { display: none; }
@@ -651,9 +660,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 .photo-modal .pm-figure {
-  margin: 0;
   max-width: min(960px, 94vw);
-  max-height: 88vh;
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
@@ -666,6 +673,7 @@ body.no-scroll { overflow: hidden; }
     grid-template-columns: 1fr;
     gap: 16px;
     text-align: center;
+    align-items: start;
   }
 }
 
@@ -730,7 +738,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 .photo-modal .pm-img {
-  max-width: 100%;
+  max-width: min(520px, 100%);
   max-height: 70vh;
   width: auto;
   height: auto;
@@ -742,6 +750,20 @@ body.no-scroll { overflow: hidden; }
     0 0 0 1px rgba(212,175,55,.15) inset;
   background: var(--bg-2);
   object-fit: contain;
+}
+
+/* na úzkém displeji omezit výšku obrázku, aby se vešla i tabulka časů */
+@media (max-width: 720px) {
+  .photo-modal .pm-img {
+    max-height: 50vh;
+    max-width: 100%;
+  }
+  .photo-modal .pm-placeholder {
+    width: min(55vh, 280px);
+    height: min(55vh, 280px);
+    max-height: 50vh;
+    font-size: clamp(60px, 14vh, 110px);
+  }
 }
 
 .photo-modal .pm-placeholder {
