@@ -1,18 +1,19 @@
 /* =============================================================
    VÝSLEDKY ÚNIKOVÉ HRY – LOGIKA
    - Načte TEAMS z teams.js
-   - Stránka má dvě kategorie hodnocení:
-       "withHints"    → řazení podle timeWithHints   (s penalizací za nápovědy)
-       "withoutHints" → řazení podle timeWithoutHints (čistý čas)
+   - 3 kategorie hodnocení:
+       "withHints"    → podle timeWithHints   (s penalizací za nápovědy)
+       "withoutHints" → podle timeWithoutHints (čistý čas)
+       "byHints"      → podle počtu nápověd; tie-break = lepší čas s penalizací
    - Trestné minuty: +15 min, pokud roomSkipped === true
-   - Tie-break: stejný čas → lépe ten s menším počtem nápověd
-   - Vykreslí podium (1.-3.) a žebříček (4.+)
+   - Tie-break (time kategorie): stejný čas → lépe ten s menším počtem nápověd
+   - Klik na fotku → lightbox s fotkou + tabulkou časů (Začátek/50/10/Konec)
    ============================================================= */
 
 (function () {
   'use strict';
 
-  var PENALTY_MIN = 15; // trestné minuty za přeskočení místnosti
+  var PENALTY_MIN = 15;
 
   /* ---------- POMOCNÉ FUNKCE ---------- */
 
@@ -59,17 +60,15 @@
 
   /* ---------- ŘAZENÍ ---------- */
 
-  // category: "withHints" | "withoutHints"
   function rankedTeams(category) {
     if (typeof TEAMS === 'undefined' || !Array.isArray(TEAMS)) return [];
 
-    var sortField = (category === 'withoutHints') ? 'timeWithoutHints' : 'timeWithHints';
-
     return TEAMS
-      .filter(function (t) { return t && (t.timeWithHints || t.timeWithoutHints); })
+      .filter(function (t) { return t && (t.timeWithHints || t.timeWithoutHints || typeof t.hints === 'number'); })
       .map(function (t) {
-        var rawSec = timeToSeconds(t[sortField] || '');
-        var pen    = penaltySeconds(t);
+        var pen        = penaltySeconds(t);
+        var withSec    = timeToSeconds(t.timeWithHints    || '') + pen;
+        var withoutSec = timeToSeconds(t.timeWithoutHints || '') + pen;
         return {
           name: t.name || 'Bez názvu',
           photo: t.photo || '',
@@ -77,62 +76,84 @@
           timeWithoutHints: t.timeWithoutHints || '',
           hints:            (typeof t.hints === 'number') ? t.hints : 0,
           roomSkipped:      t.roomSkipped === true,
-          penaltyMin:       pen / 60,
-          rawSeconds:       rawSec,
-          totalSeconds:     rawSec + pen
+          startTime:        t.startTime   || '',
+          entry50Time:      t.entry50Time || '',
+          entry10Time:      t.entry10Time || '',
+          endTime:          t.endTime     || '',
+          withSec:          withSec,
+          withoutSec:       withoutSec
         };
       })
       .sort(function (a, b) {
-        // 1) celkový čas (raw + trestné minuty)
-        if (a.totalSeconds !== b.totalSeconds) return a.totalSeconds - b.totalSeconds;
-        // 2) stejný čas → méně nápověd = lépe
+        if (category === 'byHints') {
+          // 1) méně nápověd = lépe
+          if (a.hints !== b.hints) return a.hints - b.hints;
+          // 2) tie-break: lepší čas s penalizací
+          return a.withSec - b.withSec;
+        }
+        var keyA = (category === 'withoutHints') ? a.withoutSec : a.withSec;
+        var keyB = (category === 'withoutHints') ? b.withoutSec : b.withSec;
+        if (keyA !== keyB) return keyA - keyB;
         return a.hints - b.hints;
       });
   }
 
   function timesFor(category, team) {
-    // "Hlavní čas" v dané kategorii = raw čas + případné trestné minuty
-    // (aby zobrazený čas seděl s pořadím v žebříčku)
-    var pen = team.roomSkipped ? PENALTY_MIN * 60 : 0;
-
-    if (category === 'withoutHints') {
-      var mainSec  = timeToSeconds(team.timeWithoutHints) + pen;
-      var otherSec = timeToSeconds(team.timeWithHints)    + pen;
+    if (category === 'byHints') {
       return {
-        main:       secondsToTime(mainSec),
+        main:       team.hints + '×',
         otherLabel: 'S penalizací',
-        otherValue: secondsToTime(otherSec)
+        otherValue: secondsToTime(team.withSec)
       };
     }
-    var mainSec  = timeToSeconds(team.timeWithHints)    + pen;
-    var otherSec = timeToSeconds(team.timeWithoutHints) + pen;
+    if (category === 'withoutHints') {
+      return {
+        main:       secondsToTime(team.withoutSec),
+        otherLabel: 'S penalizací',
+        otherValue: secondsToTime(team.withSec)
+      };
+    }
     return {
-      main:       secondsToTime(mainSec),
+      main:       secondsToTime(team.withSec),
       otherLabel: 'Čistý čas',
-      otherValue: secondsToTime(otherSec)
+      otherValue: secondsToTime(team.withoutSec)
     };
   }
 
   /* ---------- VYKRESLOVÁNÍ ---------- */
 
   function photoBlock(team, sizeClass) {
-    if (team.photo) {
-      return '<div class="photo ' + (sizeClass || '') + '">' +
-               '<img src="' + esc(team.photo) + '" alt="' + esc(team.name) + '" ' +
-                    'onerror="this.outerHTML=\'<span class=\\\'placeholder\\\'>' +
-                      esc(initialsFor(team.name)) + '</span>\'">' +
-             '</div>';
-    }
-    return '<div class="photo ' + (sizeClass || '') + '">' +
-             '<span class="placeholder">' + esc(initialsFor(team.name)) + '</span>' +
+    var ini = initialsFor(team.name);
+    var inner = team.photo
+      ? '<img src="' + esc(team.photo) + '" alt="' + esc(team.name) + '" ' +
+             'onerror="this.outerHTML=\'<span class=\\\'placeholder\\\'>' +
+               esc(ini) + '</span>\'">'
+      : '<span class="placeholder">' + esc(ini) + '</span>';
+
+    // JSON s časovými mezníky pro detail (lightbox)
+    var timesObj = {
+      s:   team.startTime   || '',
+      e50: team.entry50Time || '',
+      e10: team.entry10Time || '',
+      end: team.endTime     || ''
+    };
+    var timesAttr = esc(JSON.stringify(timesObj));
+
+    return '<div class="photo zoomable ' + (sizeClass || '') + '" ' +
+                'data-zoom-src="' + esc(team.photo || '') + '" ' +
+                'data-zoom-name="' + esc(team.name) + '" ' +
+                'data-zoom-initials="' + esc(ini) + '" ' +
+                'data-zoom-times="' + timesAttr + '" ' +
+                'role="button" tabindex="0" ' +
+                'aria-label="Zvětšit kartu týmu ' + esc(team.name) + '">' +
+              inner +
+              '<span class="zoom-hint" aria-hidden="true">+</span>' +
            '</div>';
   }
 
   function infoButtonHTML() {
     return '<button type="button" class="info-btn" ' +
-                  'aria-label="Vysvětlení trestných minut">' +
-              'i' +
-            '</button>';
+                  'aria-label="Vysvětlení trestných minut">i</button>';
   }
 
   function penaltyValue(t) {
@@ -143,10 +164,7 @@
     var podiumEl = document.getElementById('podium');
     if (!podiumEl) return;
 
-    if (top3.length === 0) {
-      podiumEl.innerHTML = '';
-      return;
-    }
+    if (top3.length === 0) { podiumEl.innerHTML = ''; return; }
 
     var slots = [];
     if (top3[1]) slots.push({ team: top3[1], rank: 2, cls: 'silver' });
@@ -251,13 +269,12 @@
 
         var cat = btn.getAttribute('data-category') || 'withHints';
         renderCategory(cat);
-
-        hideInfoPopover(); // při přepnutí kategorie schovat popover
+        hideInfoPopover();
       });
     });
   }
 
-  /* ---------- INFO POPOVER (klik na "i") ---------- */
+  /* ---------- INFO POPOVER ---------- */
 
   var _popoverAnchor = null;
 
@@ -271,25 +288,17 @@
     var pop = document.getElementById('infoPopover');
     if (!pop || !btn) return;
     pop.hidden = false;
-
-    // dočasně zobraz pro změření
     var rect = btn.getBoundingClientRect();
     var popRect = pop.getBoundingClientRect();
-
     var top = window.scrollY + rect.bottom + 10;
     var left = window.scrollX + rect.left + rect.width / 2 - popRect.width / 2;
-
-    // odraz od okrajů viewportu
     var margin = 12;
     if (left < window.scrollX + margin) left = window.scrollX + margin;
     var maxLeft = window.scrollX + window.innerWidth - popRect.width - margin;
     if (left > maxLeft) left = maxLeft;
-
-    // pokud by popover přesáhl dolů, posaď ho nad tlačítko
     if (rect.bottom + popRect.height + 20 > window.innerHeight) {
       top = window.scrollY + rect.top - popRect.height - 10;
     }
-
     pop.style.top  = top + 'px';
     pop.style.left = left + 'px';
   }
@@ -309,12 +318,10 @@
         }
         return;
       }
-      // klik mimo (i) a mimo popover → zavřít
       if (pop && !pop.hidden && !(e.target.closest && e.target.closest('#infoPopover'))) {
         hideInfoPopover();
       }
     });
-
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') hideInfoPopover();
     });
@@ -324,11 +331,96 @@
     }, { passive: true });
   }
 
+  /* ---------- LIGHTBOX (zvětšení fotky + časy) ---------- */
+
+  function setTimesRow(modal, fieldClass, value) {
+    var dd = modal.querySelector('.pm-times .' + fieldClass);
+    if (dd) dd.textContent = value && value.trim() ? value : '—';
+  }
+
+  function showPhotoModal(src, name, initials, timesJson) {
+    var modal = document.getElementById('photoModal');
+    if (!modal) return;
+    var img = modal.querySelector('.pm-img');
+    var ph  = modal.querySelector('.pm-placeholder');
+    var cap = modal.querySelector('.pm-caption');
+
+    if (src) {
+      if (img) { img.src = src; img.alt = name || ''; img.hidden = false; }
+      if (ph)  ph.hidden = true;
+    } else {
+      if (img) { img.removeAttribute('src'); img.hidden = true; }
+      if (ph)  { ph.textContent = initials || '?'; ph.hidden = false; }
+    }
+    if (cap) cap.textContent = name || '';
+
+    // časové mezníky
+    var times = { s:'', e50:'', e10:'', end:'' };
+    if (timesJson) {
+      try { var p = JSON.parse(timesJson); if (p && typeof p === 'object') times = p; } catch(e){}
+    }
+    setTimesRow(modal, 't-start', times.s);
+    setTimesRow(modal, 't-e50',   times.e50);
+    setTimesRow(modal, 't-e10',   times.e10);
+    setTimesRow(modal, 't-end',   times.end);
+
+    modal.hidden = false;
+    document.body.classList.add('no-scroll');
+    hideInfoPopover();
+  }
+
+  function hidePhotoModal() {
+    var modal = document.getElementById('photoModal');
+    if (!modal) return;
+    modal.hidden = true;
+    var img = modal.querySelector('.pm-img');
+    if (img) img.removeAttribute('src');
+    document.body.classList.remove('no-scroll');
+  }
+
+  function bindPhotoZoom() {
+    document.addEventListener('click', function (e) {
+      var photo = e.target.closest && e.target.closest('.photo.zoomable');
+      if (photo) {
+        e.preventDefault();
+        showPhotoModal(
+          photo.getAttribute('data-zoom-src'),
+          photo.getAttribute('data-zoom-name'),
+          photo.getAttribute('data-zoom-initials'),
+          photo.getAttribute('data-zoom-times')
+        );
+        return;
+      }
+      var modal = document.getElementById('photoModal');
+      if (modal && !modal.hidden) {
+        var inFig = e.target.closest && e.target.closest('.pm-figure');
+        var onCloseBtn = e.target.closest && e.target.closest('.pm-close');
+        if (onCloseBtn || !inFig) hidePhotoModal();
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { hidePhotoModal(); return; }
+      if (e.key === 'Enter' || e.key === ' ') {
+        var el = document.activeElement;
+        if (el && el.classList && el.classList.contains('zoomable')) {
+          e.preventDefault();
+          showPhotoModal(
+            el.getAttribute('data-zoom-src'),
+            el.getAttribute('data-zoom-name'),
+            el.getAttribute('data-zoom-initials'),
+            el.getAttribute('data-zoom-times')
+          );
+        }
+      }
+    });
+  }
+
   /* ---------- START ---------- */
 
   document.addEventListener('DOMContentLoaded', function () {
     bindCategorySwitch();
     bindInfoPopover();
+    bindPhotoZoom();
     renderCategory('withHints');
   });
 

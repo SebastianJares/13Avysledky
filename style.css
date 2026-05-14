@@ -134,6 +134,17 @@ body {
   box-shadow: var(--shadow-md);
 }
 
+.level-switch.level-switch-3 {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 880px;
+}
+
+@media (max-width: 640px) {
+  .level-switch.level-switch-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
 .level-btn {
   position: relative;
   display: flex;
@@ -572,6 +583,230 @@ body {
 }
 
 .site-footer strong { color: var(--gold); font-weight: 700; }
+
+/* ---------- ZOOMABLE FOTKA + LIGHTBOX ---------- */
+
+.photo.zoomable {
+  cursor: zoom-in;
+  transition: transform .2s ease, box-shadow .2s ease;
+  position: relative;
+}
+
+.photo.zoomable:hover {
+  transform: scale(1.05);
+}
+
+.photo.zoomable:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.photo.zoomable .zoom-hint {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(7, 7, 10, .75);
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+}
+
+.photo.zoomable:hover .zoom-hint,
+.photo.zoomable:focus-visible .zoom-hint {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* zákaz scrollu na pozadí, když je modal otevřený */
+body.no-scroll { overflow: hidden; }
+
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 40px 24px;
+  background: rgba(7, 7, 10, .85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: modalFadeIn .25s ease both;
+}
+
+.photo-modal[hidden] { display: none; }
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.photo-modal .pm-figure {
+  margin: 0;
+  max-width: min(960px, 94vw);
+  max-height: 88vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 28px;
+  animation: modalRiseIn .35s cubic-bezier(.2,.7,.3,1) both;
+}
+
+@media (max-width: 720px) {
+  .photo-modal .pm-figure {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+.photo-modal .pm-media {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+}
+
+.photo-modal .pm-side {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.photo-modal .pm-times {
+  margin: 0;
+  padding: 18px 22px;
+  background: linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  border: 1px solid rgba(212,175,55,.25);
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px rgba(212,175,55,.08) inset;
+  display: grid;
+  gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  min-width: 240px;
+}
+
+.photo-modal .pm-times .pm-time-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(212,175,55,.15);
+}
+
+.photo-modal .pm-times .pm-time-row:last-child { border-bottom: none; }
+
+.photo-modal .pm-times dt {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 0;
+  align-self: center;
+}
+
+.photo-modal .pm-times dd {
+  margin: 0;
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-align: right;
+}
+
+@keyframes modalRiseIn {
+  from { opacity: 0; transform: translateY(20px) scale(.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.photo-modal .pm-img {
+  max-width: 100%;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(212,175,55,.45);
+  box-shadow:
+    0 30px 60px -15px rgba(0,0,0,.8),
+    0 0 60px rgba(212,175,55,.15),
+    0 0 0 1px rgba(212,175,55,.15) inset;
+  background: var(--bg-2);
+  object-fit: contain;
+}
+
+.photo-modal .pm-placeholder {
+  width: min(70vh, 360px);
+  height: min(70vh, 360px);
+  max-width: 92vw;
+  max-height: 70vh;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, var(--bg-3), var(--bg-2));
+  border: 1px solid rgba(212,175,55,.45);
+  box-shadow:
+    0 30px 60px -15px rgba(0,0,0,.8),
+    0 0 60px rgba(212,175,55,.15),
+    0 0 0 1px rgba(212,175,55,.15) inset;
+  display: grid;
+  place-items: center;
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: clamp(80px, 18vh, 160px);
+  letter-spacing: .04em;
+  color: var(--gold);
+  text-shadow: 0 0 40px rgba(212,175,55,.4);
+}
+
+.photo-modal .pm-placeholder[hidden],
+.photo-modal .pm-img[hidden] { display: none; }
+
+.photo-modal .pm-caption {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
+  text-shadow: 0 0 20px rgba(212,175,55,.35);
+}
+
+.photo-modal .pm-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(20, 20, 27, .8);
+  border: 1px solid rgba(212,175,55,.45);
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background .2s, color .2s, transform .2s, border-color .2s;
+}
+
+.photo-modal .pm-close:hover,
+.photo-modal .pm-close:focus-visible {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #1a1408;
+  transform: scale(1.05);
+  outline: none;
+}
 
 /* ---------- INFO (i) IKONA + POPOVER ---------- */
 

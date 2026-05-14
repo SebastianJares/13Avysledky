@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- jemná zrnitá textura přes celou stránku -->
   <div class="grain" aria-hidden="true"></div>
 
   <header class="site-header">
@@ -30,47 +29,55 @@
   <main class="container">
 
     <!-- Přepínač kategorií -->
-    <nav class="level-switch" role="tablist" aria-label="Přepínač kategorií">
-      <button
-        class="level-btn is-active"
-        role="tab"
-        aria-selected="true"
-        data-category="withHints"
-      >
+    <nav class="level-switch level-switch-3" role="tablist" aria-label="Přepínač kategorií">
+      <button class="level-btn is-active" role="tab" aria-selected="true"  data-category="withHints">
         <span class="level-num">S penalizací</span>
         <span class="level-sub">čas + nápovědy</span>
       </button>
-      <button
-        class="level-btn"
-        role="tab"
-        aria-selected="false"
-        data-category="withoutHints"
-      >
+      <button class="level-btn"            role="tab" aria-selected="false" data-category="withoutHints">
         <span class="level-num">Bez penalizace</span>
         <span class="level-sub">čistý čas</span>
       </button>
+      <button class="level-btn"            role="tab" aria-selected="false" data-category="byHints">
+        <span class="level-num">Podle nápověd</span>
+        <span class="level-sub">méně = lépe</span>
+      </button>
     </nav>
 
-    <!-- Podium pro TOP 3 -->
     <section class="podium" id="podium" aria-label="Nejlepší tři týmy"></section>
-
-    <!-- Žebříček ostatních týmů -->
     <section class="leaderboard" id="leaderboard" aria-label="Žebříček týmů"></section>
 
-    <!-- Zpráva, když není žádný tým -->
     <p class="empty-msg" id="emptyMsg" hidden>
       Zatím tu není žádný tým – přidej je v souboru <code>teams.js</code>.
     </p>
-
   </main>
 
-  <!-- Globální popover pro info ikony "(i)" -->
+  <!-- Popover pro (i) -->
   <div id="infoPopover" class="info-popover" role="dialog" aria-label="Informace o trestných minutách" hidden>
     <p class="ip-title">Trestné minuty</p>
     <p class="ip-body">Přeskočení místnosti 10. chybou <strong>(+15 min)</strong>.</p>
   </div>
 
-  <!-- DATA → LOGIKA -->
+  <!-- Lightbox – zvětšení fotky + časy -->
+  <div id="photoModal" class="photo-modal" role="dialog" aria-modal="true" aria-label="Detail týmu" hidden>
+    <button type="button" class="pm-close" aria-label="Zavřít náhled">&times;</button>
+    <figure class="pm-figure">
+      <div class="pm-media">
+        <img class="pm-img" alt="" hidden />
+        <div class="pm-placeholder" hidden>?</div>
+      </div>
+      <div class="pm-side">
+        <figcaption class="pm-caption"></figcaption>
+        <dl class="pm-times">
+          <div class="pm-time-row"><dt>Začátek</dt><dd class="t-start">—</dd></div>
+          <div class="pm-time-row"><dt>Vstup do 50</dt><dd class="t-e50">—</dd></div>
+          <div class="pm-time-row"><dt>Vstup do 10</dt><dd class="t-e10">—</dd></div>
+          <div class="pm-time-row"><dt>Konec</dt><dd class="t-end">—</dd></div>
+        </dl>
+      </div>
+    </figure>
+  </div>
+
   <script src="teams.js"></script>
   <script src="script.js"></script>
 </body>
