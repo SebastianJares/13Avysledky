@@ -84,7 +84,7 @@ const TEAMS = [
   },
     {
     name: "MDPM",
-    photo: "Lepsimodle.jpg",
+    photo: "IMG_2550.jpeg",
     timeWithoutHints: "2:25:00",
     timeWithHints:    "2:40:00",
     hints: 3,
