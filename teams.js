@@ -82,6 +82,18 @@ const TEAMS = [
     entry10Time: "10:43",
     endTime:     "10:57"
   },
+    {
+    name: "MDPM",
+    photo: "Lepsimodle.jpg",
+    timeWithoutHints: "2:25:00",
+    timeWithHints:    "2:40:00",
+    hints: 3,
+    roomSkipped: false,
+    startTime:   "8:25",
+    entry50Time: "9:13",
+    entry10Time: "10:23",
+    endTime:     "10:50"
+  },
   {
     name: "Opozdilci",
     photo: "opoydilci.jpg",
