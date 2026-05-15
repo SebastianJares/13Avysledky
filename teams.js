@@ -72,7 +72,7 @@ const TEAMS = [
   },
    {
     name: "O Můj Bože",
-    photo: "omujboze.jpg",
+    photo: "IMG_2528.jpeg",
     timeWithoutHints: "2:38:00",
     timeWithHints:    "2:38:00",
     hints: 0,
