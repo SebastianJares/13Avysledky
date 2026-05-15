@@ -41,10 +41,10 @@ const TEAMS = [
     timeWithHints:    "3:05:00",
     hints: 10,
     roomSkipped: false,
-    startTime:   "",
-    entry50Time: "",
-    entry10Time: "",
-    endTime:     ""
+    startTime:   "8:13",
+    entry50Time: "9:05",
+    entry10Time: "10:06",
+    endTime:     "10:28"
   },
   {
     name: "DreamTeam",
@@ -53,10 +53,10 @@ const TEAMS = [
     timeWithHints:    "2:40:00",
     hints: 5,
     roomSkipped: true,
-    startTime:   "",
-    entry50Time: "",
-    entry10Time: "",
-    endTime:     ""
+    startTime:   "8:15",
+    entry50Time: "9:02",
+    entry10Time: "10:25",
+    endTime:     "10:30"
   },
   {
     name: "Lepší Modletice Devils",
@@ -65,34 +65,34 @@ const TEAMS = [
     timeWithHints:    "2:47:00",
     hints: 9,
     roomSkipped: true,
-    startTime:   "",
-    entry50Time: "",
-    entry10Time: "",
-    endTime:     ""
+    startTime:   "12:06",
+    entry50Time: "12:50",
+    entry10Time: "14:07",
+    endTime:     "14:18"
   },
    {
     name: "O Můj Bože",
     photo: "omujboze.jpg",
-    timeWithoutHints: "2:37:00",
-    timeWithHints:    "2:37:00",
+    timeWithoutHints: "2:38:00",
+    timeWithHints:    "2:38:00",
     hints: 0,
     roomSkipped: false,
-    startTime:   "",
-    entry50Time: "",
-    entry10Time: "",
-    endTime:     ""
+    startTime:   "8:19",
+    entry50Time: "9:15",
+    entry10Time: "10:43",
+    endTime:     "10:57"
   },
   {
     name: "Opozdilci",
-    photo: "",
+    photo: "opoydilci.jpg",
     timeWithoutHints: "2:20:00",
     timeWithHints:    "3:35:00",
     hints: 15,
     roomSkipped: false,
-    startTime:   "",
-    entry50Time: "",
-    entry10Time: "",
-    endTime:     ""
+    startTime:   "9:28",
+    entry50Time: "10:25",
+    entry10Time: "11:27",
+    endTime:     "11:48"
   }
   // <<< Další tým přidej sem (nezapomeň čárku za předchozí složenou závorkou)
 ];
