@@ -49,8 +49,8 @@ const TEAMS = [
   {
     name: "DreamTeam",
     photo: "pokus.webp",
-    timeWithoutHints: "2:15:00",
-    timeWithHints:    "2:40:00",
+    timeWithoutHints: "2:10:00",
+    timeWithHints:    "2:35:00",
     hints: 5,
     roomSkipped: true,
     startTime:   "8:15",
