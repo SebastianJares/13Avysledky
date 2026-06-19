@@ -84,7 +84,7 @@ const TEAMS = [
   },
     {
     name: "Kolibříci",
-    photo: "kolibrici.jpeg",
+    photo: "kolibrici.JPEG",
     timeWithoutHints: "2:31:00",
     timeWithHints:    "3:06:00",
     hints: 7,
@@ -96,7 +96,7 @@ const TEAMS = [
   },
     {
     name: "Drivers Stars",
-    photo: "drivers.jpeg",
+    photo: "drivers.JPEG",
     timeWithoutHints: "2:31:00",
     timeWithHints:    "2:51:00",
     hints: 4,
@@ -108,7 +108,7 @@ const TEAMS = [
   },
     {
     name: "Mlejnkův tým",
-    photo: "mlejnek.jpeg",
+    photo: "mlejnek.JPEG",
     timeWithoutHints: "2:32:00",
     timeWithHints:    "2:57:00",
     hints: 5,
@@ -132,7 +132,7 @@ const TEAMS = [
   },
     {
     name: "Lepší COOL název (Ústav)",
-    photo: "lepsi.jpeg",
+    photo: "ustav.JPEG",
     timeWithoutHints: "2:00:00",
     timeWithHints:    "2:20:00",
     hints: 4,
