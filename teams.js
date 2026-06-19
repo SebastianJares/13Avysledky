@@ -83,6 +83,66 @@ const TEAMS = [
     endTime:     "10:57"
   },
     {
+    name: "Kolibříci",
+    photo: "kolibrici.jpeg",
+    timeWithoutHints: "2:31:00",
+    timeWithHints:    "3:06:00",
+    hints: 7,
+    roomSkipped: false,
+    startTime:   "8:17",
+    entry50Time: "9:21",
+    entry10Time: "10:30",
+    endTime:     "10:48"
+  },
+    {
+    name: "Drivers Stars",
+    photo: "drivers.jpeg",
+    timeWithoutHints: "2:31:00",
+    timeWithHints:    "2:51:00",
+    hints: 4,
+    roomSkipped: false,
+    startTime:   "8:19",
+    entry50Time: "9:17",
+    entry10Time: "10:45",
+    endTime:     "10:50"
+  },
+    {
+    name: "Mlejnkův tým",
+    photo: "mlejnek.jpeg",
+    timeWithoutHints: "2:32:00",
+    timeWithHints:    "2:57:00",
+    hints: 5,
+    roomSkipped: false,
+    startTime:   "12:40",
+    entry50Time: "13:40",
+    entry10Time: "14:55",
+    endTime:     "15:12"
+  },
+    {
+    name: "Blondýny z HUBU",
+    photo: "",
+    timeWithoutHints: "2:57:00",
+    timeWithHints:    "3:27:00",
+    hints: 6,
+    roomSkipped: false,
+    startTime:   "8:16",
+    entry50Time: "9:20",
+    entry10Time: "10:50",
+    endTime:     "11:13"
+  },
+    {
+    name: "Lepší COOL název (Ústav)",
+    photo: "lepsi.jpeg",
+    timeWithoutHints: "2:00:00",
+    timeWithHints:    "2:20:00",
+    hints: 4,
+    roomSkipped: false,
+    startTime:   "9:43",
+    entry50Time: "10:23",
+    entry10Time: "11:28",
+    endTime:     "11:43"
+  },
+    {
     name: "MDPM",
     photo: "IMG_2550.jpeg",
     timeWithoutHints: "2:25:00",
