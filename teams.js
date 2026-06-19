@@ -82,6 +82,18 @@ const TEAMS = [
     entry10Time: "10:43",
     endTime:     "10:57"
   },
+   {
+    name: "East",
+    photo: "IMG_2961.jpeg",
+    timeWithoutHints: "2:04:00",
+    timeWithHints:    "2:19:00",
+    hints: 3,
+    roomSkipped: false,
+    startTime:   "10:17",
+    entry50Time: "10:51",
+    entry10Time: "12:06",
+    endTime:     "12:21"
+  },
     {
     name: "Kolibříci",
     photo: "kolibrici.JPEG",
