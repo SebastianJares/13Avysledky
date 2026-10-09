@@ -168,7 +168,7 @@ const TEAMS = [
   },
     {
     name: "HRr",
-    photo: "IMG_2961.jpeg",
+    photo: "IMG_4222.jpeg",
     timeWithoutHints: "2:45:00",
     timeWithHints:    "3:10:00",
     hints: 5,
@@ -180,7 +180,7 @@ const TEAMS = [
   },
     {
     name: "Poslední Mohykáni",
-    photo: "IMG_2961.jpeg",
+    photo: "IMG_4261.jpeg",
     timeWithoutHints: "4:06:00",
     timeWithHints:    "4:21:00",
     hints: 3,
@@ -192,7 +192,7 @@ const TEAMS = [
   },
     {
     name: "Šampioni",
-    photo: "IMG_2961.jpeg",
+    photo: "IMG_4238.jpeg",
     timeWithoutHints: "1:51:00",
     timeWithHints:    "2:01:00",
     hints: 2,
