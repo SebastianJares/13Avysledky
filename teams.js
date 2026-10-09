@@ -166,6 +166,42 @@ const TEAMS = [
     entry10Time: "10:23",
     endTime:     "10:50"
   },
+    {
+    name: "HRr",
+    photo: "IMG_2961.jpeg",
+    timeWithoutHints: "2:45:00",
+    timeWithHints:    "3:10:00",
+    hints: 5,
+    roomSkipped: false,
+    startTime:   "09:30",
+    entry50Time: "10:36",
+    entry10Time: "11:51",
+    endTime:     "12:15"
+  },
+    {
+    name: "Poslední Mohykáni",
+    photo: "IMG_2961.jpeg",
+    timeWithoutHints: "4:06:00",
+    timeWithHints:    "4:21:00",
+    hints: 3,
+    roomSkipped: false,
+    startTime:   "09:26",
+    entry50Time: "10:46",
+    entry10Time: "13:02",
+    endTime:     "13:32"
+  },
+    {
+    name: "Šampioni",
+    photo: "IMG_2961.jpeg",
+    timeWithoutHints: "1:51:00",
+    timeWithHints:    "2:01:00",
+    hints: 2,
+    roomSkipped: false,
+    startTime:   "09:27",
+    entry50Time: "09:56",
+    entry10Time: "11:03",
+    endTime:     "11:18"
+  },
   {
     name: "Opozdilci",
     photo: "opoydilci.jpg",
